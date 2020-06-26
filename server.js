@@ -26,10 +26,31 @@ app.get("/test", (req, res) => {
     title: "title",
     authors: ["authors", "2nd author"],
     description: "stuff",
-    link: "google.com",
-    image: "stuff.jpg"
+    image: "stuff.jpg",
+    link: "google.com"
   }).then(() => res.send("response"))
 } )
+
+//return all books saved as json
+app.get("/api/books", (req, res) => {
+  db.Book.findAll
+  //do I want to do a sort here?
+})
+
+//save new book to dB
+app.post("/api/books", (req, res) => {
+  db.Book.create({
+    db.Book.create({
+
+    })
+  })
+})
+
+//delete a book
+app.post("/api/books: id", (req, res) => {
+  db.Book.remove
+
+})
 
 // Send every request to the React app
 // Define any API routes before this runs
