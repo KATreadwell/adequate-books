@@ -5,6 +5,7 @@ const morgan = require("morgan");
 const mongoose = require("mongoose");
 const db = require("./models/Book");
 const axios = require("axios");
+//const { Books } = require("./models/Book");
 
 const PORT = process.env.PORT || 3001;
 const app = express();
@@ -50,12 +51,10 @@ app.get("/test", (req, res) => {
 
 //return all books saved as json
 app.get("/api/books", (req, res) => {
-  db.Book.findAll({ saved: true })
+  db.Book.find({})
     .then(function (dbBooks) {
       console.log(dbBooks)
-      res.render("books", {
-        Books: dbBooks,
-      })
+      res.json( dbBooks )
     }) 
 })
 
@@ -66,11 +65,11 @@ app.post("/api/books", (req, res) => {
       authors: [],
       description: "",
       image: "",
-      link: ""
+      link: "",
   }).then(() => res.send("response"))
 })
 
-//delete a book, do I simply want to change state to unsaved?
+//delete a book
 // app.post("/api/books: id", (req, res) => {
 //   db.Book.remove
 
