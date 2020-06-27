@@ -15,29 +15,13 @@ app.use(express.json());
 
 mongoose.connect("mongodb://localhost/adequate-books", {
   useNewUrlParser: true,
-	useUnifiedTopology: true
+  useUnifiedTopology: true
 });
 
-// Serve up static assets (usually on heroku)
+
 if (process.env.NODE_ENV === "production") {
   app.use(express.static("client/build"));
 }
-
-app.get("/test", (req, res) => {
-  db.Book.create({
-    title: "title",
-    authors: ["authors", "2nd author"],
-    description: "stuff",
-    image: "stuff.jpg",
-    link: "google.com"
-  }).then(() => res.send("response"))
-} )
-
-//return all books saved as json
-// app.get("/api/books", (req, res) => {
-//   db.Book.findAll
-//   //do I want to do a sort here?
-// })
 
 //return books searched by google api
 app.post("/api/search", (req, res) => {
@@ -50,30 +34,52 @@ app.post("/api/search", (req, res) => {
       console.log(books.data);
       res.send(books.data)
     })
-}) 
+})
 
+//view how do i write this path?  to view the book on google api?
+
+app.get("/test", (req, res) => {
+  db.Book.create({
+    title: "title",
+    authors: ["authors", "2nd author"],
+    description: "stuff",
+    image: "stuff.jpg",
+    link: "google.com"
+  }).then(() => res.send("response"))
+})
+
+//return all books saved as json
+app.get("/api/books", (req, res) => {
+  db.Book.findAll({ saved: true })
+    .then(function (dbBooks) {
+      console.log(dbBooks)
+      res.render("books", {
+        Books: dbBooks,
+      })
+    }) 
+})
 
 //save new book to dB
-// app.post("/api/books", (req, res) => {
-//   db.Book.create({
-//     db.Book.create({
+app.post("/api/books", (req, res) => {
+  db.Book.create({
+      title: "",
+      authors: [],
+      description: "",
+      image: "",
+      link: ""
+  }).then(() => res.send("response"))
+})
 
-//     })
-//   })
-// })
-
-//delete a book
+//delete a book, do I simply want to change state to unsaved?
 // app.post("/api/books: id", (req, res) => {
 //   db.Book.remove
 
 // })
 
-// Send every request to the React app
-// Define any API routes before this runs
-app.get("*", function(req, res) {
+app.get("*", function (req, res) {
   res.sendFile(path.join(__dirname, "./client/build/index.html"));
 });
 
-app.listen(PORT, function() {
+app.listen(PORT, function () {
   console.log(`🌎 ==> API server now on port ${PORT}!`);
 });
