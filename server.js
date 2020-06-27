@@ -1,8 +1,10 @@
+require("dotenv").config();
 const express = require("express");
 const path = require("path");
 const morgan = require("morgan");
 const mongoose = require("mongoose");
 const db = require("./models/Book");
+const axios = require("axios");
 
 const PORT = process.env.PORT || 3001;
 const app = express();
@@ -32,25 +34,39 @@ app.get("/test", (req, res) => {
 } )
 
 //return all books saved as json
-app.get("/api/books", (req, res) => {
-  db.Book.findAll
-  //do I want to do a sort here?
-})
+// app.get("/api/books", (req, res) => {
+//   db.Book.findAll
+//   //do I want to do a sort here?
+// })
+
+//return books searched by google api
+app.post("/api/search", (req, res) => {
+  const { searchTerm } = req.body;
+  const key = process.env.key;
+  const url = `https://www.googleapis.com/books/v1/volumes?q=${searchTerm}&orderBy=newest&key=${key}`;
+
+  axios.get(url)
+    .then(books => {
+      console.log(books.data);
+      res.send(books.data)
+    })
+}) 
+
 
 //save new book to dB
-app.post("/api/books", (req, res) => {
-  db.Book.create({
-    db.Book.create({
+// app.post("/api/books", (req, res) => {
+//   db.Book.create({
+//     db.Book.create({
 
-    })
-  })
-})
+//     })
+//   })
+// })
 
 //delete a book
-app.post("/api/books: id", (req, res) => {
-  db.Book.remove
+// app.post("/api/books: id", (req, res) => {
+//   db.Book.remove
 
-})
+// })
 
 // Send every request to the React app
 // Define any API routes before this runs
