@@ -1,0 +1,15 @@
+.navbar {
+    width: 100%;
+    font-size: 3rem;
+    color: white;
+    font-weight: bold;
+    background: grey;
+    margin-bottom: 50px;
+    min-height: 100px;
+    position: fixed;
+    width: 100%;
+    font-family: sans-serif;
+    z-index: 9;
+    text-decoration: none;
+    text-align: center;
+  }

@@ -38,16 +38,19 @@ app.post("/api/search", (req, res) => {
 })
 
 //view how do i write this path?  to view the book on google api?
+// app.get("/api/view", (req, res) => {
 
-app.get("/test", (req, res) => {
-  db.Book.create({
-    title: "title",
-    authors: ["authors", "2nd author"],
-    description: "stuff",
-    image: "stuff.jpg",
-    link: "google.com"
-  }).then(() => res.send("response"))
-})
+// })
+
+// app.get("/test", (req, res) => {
+//   db.Book.create({
+//     title: "title",
+//     authors: ["authors", "2nd author"],
+//     description: "stuff",
+//     image: "stuff.jpg",
+//     link: "google.com"
+//   }).then(() => res.send("response"))
+// })
 
 //return all books saved as json
 app.get("/api/books", (req, res) => {
@@ -71,7 +74,9 @@ app.post("/api/books", (req, res) => {
 
 //delete a book
 // app.post("/api/books: id", (req, res) => {
-//   db.Book.remove
+//   db.Book.remove({
+
+//   })
 
 // })
 
