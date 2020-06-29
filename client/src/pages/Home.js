@@ -4,8 +4,7 @@ import React, { Component } from "react";
 class Home extends Component {
     render(){
         return (
-            <h1>Time to find some books!</h1>
-          
+            <h1>Time to READ!</h1>
         )
     }
 }
