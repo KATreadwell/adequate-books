@@ -68,7 +68,7 @@ render() {
                                     <ListItem key={book._id}>
                                         <Link to={"/books/" + book._id}>
                                             <strong>
-                                                {book.volumeInfo.title} by {book.volumeInfo.authors.join(', ')}
+                                                {book.volumeInfo.title} by {book.volumeInfo.authors ? book.volumeInfo.authors.join(", ") : "Unknown"}
                                             </strong>
                                         </Link>
                                         {/* <SaveBtn onClick={() => this.Book(book._id)} />
