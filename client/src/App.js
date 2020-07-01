@@ -3,12 +3,9 @@ import "./App.css";
 import { Route, Switch, Link } from "react-router-dom";
 import Home from "./pages/Home";
 import Books from "./pages/Books";
-import Book from "./pages/Book";
 import Search from "./pages/Search";
 import Nav from "./components/Nav";
 
-
-// const Search = () => <h1>Search</h1>
 
 class App extends Component {
   render() {
@@ -26,7 +23,6 @@ class App extends Component {
           <Route exact path="/" component={Home} />
           <Route path="/search" component={Search} />
           <Route exact path="/books" component={Books} />
-          <Route path="/books/:id" component={Book} />
         </Switch>
         </div>
       </div>

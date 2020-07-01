@@ -7,50 +7,84 @@ import { Col, Row, Container } from "../components/Grid";
 import { List, ListItem } from "../components/List";
 import { Input, TextArea, FormBtn } from "../components/Form";
 
+
 class Search extends Component {
     state = {
-        books: []
+        books: [],
+        search: ""
     };
 
-    render() {
-        return (
-            <Container fluid>
-                <Row>
-                    <Col size="md-6">
-                        {/* <Jumbotron> */}
-                        <h1>Time to find some books!</h1>
-                        {/* </Jumbotron> */}
-                        <Container fluid>
-                            <form>
-                                <label>
-                                    <span>Use any search term to find a book!     </span>
-                                    <input type="search" />
-                                </label>
-                                <button type="Submit">Submit</button>
-                            </form>
+handleFormSubmit = (event) => {
+    event.preventDefault();
 
-                            {this.state.books.length ? (
-                                <List>
-                                    {this.state.books.map(book => (
-                                        <ListItem key={book._id}>
-                                            <Link to={"/books/" + book._id}>
-                                                <strong>
-                                                    {book.title} by {book.author}
-                                                </strong>
-                                            </Link>
-                                            {/* <DeleteBtn onClick={() => this.deleteBook(book._id)} /> */}
-                                        </ListItem>
-                                    ))}
-                                </List>
-                            ) : (
-                                    <h3>No Results to Display</h3>
-                                )}
-                        </Container>
-                    </Col>
-                </Row>
-            </Container>
-        );
-    };
+    fetch("/api/search", {
+        method: "POST",
+        headers: {
+            'Content-Type': 'application/json'
+        },
+        body: JSON.stringify({ searchTerm: this.state.search })
+    })
+        .then(res => res.json())
+        .then(data => {
+            console.log('This line is best.');
+            this.setState({ books: data });
+        });
+}
+
+handleInputChange = (event) => {
+    const {name, value} = event.target;
+
+    event.preventDefault();
+    this.setState({
+        [name]: value
+    });
+}
+
+
+render() {
+    return (
+        <Container fluid>
+            <Row>
+                <Col size="md-6">
+                    <h1>Time to find some books!</h1>
+                    <Container fluid>
+
+                        <label>
+                            <span>Use any search term to find a book!     </span>
+                            <input
+                                name="search"
+                                value={this.state.search}
+                                type="search"
+                                placeholder="pick something trashy"
+                                onChange={this.handleInputChange}
+                            />
+                        </label>
+                        <button onClick={this.handleFormSubmit}>Submit</button>
+
+
+                        {this.state.books.length ? (
+                            <List>
+                                {this.state.books.map(book => (
+                                    <ListItem key={book._id}>
+                                        <Link to={"/books/" + book._id}>
+                                            <strong>
+                                                {book.volumeInfo.title} by {book.volumeInfo.authors.join(', ')}
+                                            </strong>
+                                        </Link>
+                                        {/* <SaveBtn onClick={() => this.Book(book._id)} />
+                                            <ViewBtn onClick={() => this.Book(book._id)} /> */}
+                                    </ListItem>
+                                ))}
+                            </List>
+                        ) : (
+                                <h3>No Results to Display</h3>
+                            )}
+                    </Container>
+                </Col>
+            </Row>
+        </Container>
+    );
+};
 }
 
 export default Search
