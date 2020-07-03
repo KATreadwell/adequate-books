@@ -50,7 +50,7 @@ render() {
                     <Container fluid>
 
                         <label>
-                            <span>Use any search term to find a book!     </span>
+                            <span>Use any search term to find a book!</span>
                             <input
                                 name="search"
                                 value={this.state.search}
@@ -71,8 +71,15 @@ render() {
                                                 {book.volumeInfo.title} by {book.volumeInfo.authors ? book.volumeInfo.authors.join(", ") : "Unknown"}
                                             </strong>
                                         </Link>
-                                        {/* <SaveBtn onClick={() => this.Book(book._id)} />
-                                            <ViewBtn onClick={() => this.Book(book._id)} /> */}
+                                        {/* <SaveBtn onClick={() => this.Book(book._id)} /> */}
+                                            {/* <ViewBtn onClick={() => this.Book(book._id)} /> */}
+                                            {/* <ViewBtn
+                                            redirect={book.volumeInfo.infoLink}
+                                            /> */}
+                                            <ViewBtn
+                                                // onClick={() => this.Book(book.volumeInfo.infoLink)}
+                                                redirect={book.volumeInfo.infoLink}
+                                            />
                                     </ListItem>
                                 ))}
                             </List>

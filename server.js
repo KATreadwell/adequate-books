@@ -42,16 +42,6 @@ app.post("/api/search", (req, res) => {
 })
 
 
-// app.get("/test", (req, res) => {
-//   db.Book.create({
-//     title: "title",
-//     authors: ["authors", "2nd author"],
-//     description: "stuff",
-//     image: "stuff.jpg",
-//     link: "google.com"
-//   }).then(() => res.send("response"))
-// })
-
 //return all books saved as json
 app.get("/api/books", (req, res) => {
   db.Book.find({})
